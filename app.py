@@ -1,10 +1,13 @@
-from flask import Flask
+from flask import (
+    Flask,
+    render_template
+)
 
 app = Flask(__name__)
 
 @app.route("/")
 def hello_world():
-    return "<p>Hello, World!</p>"
+    return render_template("events.html")
 
 @app.route("/admin-dashboard")
 def admin_dashboard():
@@ -12,4 +15,4 @@ def admin_dashboard():
 
 @app.route("/add-event")
 def add_event():
-    pass
+    return render_template("add_event.html")

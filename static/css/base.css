@@ -1,0 +1,43 @@
+body{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+p, h1{
+    margin: 0px;
+}
+
+.page-content{
+    width: 80%;
+    margin: auto;
+}
+
+.page-title h1{
+    font-size: 52px;
+}
+
+.page-title{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 3rem 0rem 2rem 0rem
+}
+
+.page-title button{
+    background-color: #FFFFFF;
+    border-radius: 3px;
+    color: #129BFF;
+    border-color: #129BFF;
+    border-width: 1px;
+    border-style: solid;
+    font-size: 16px;
+}
+
+.title-badge{
+    background-color: #FF4C41;
+    border-radius: 3px;
+    color: #FFFFFF;
+    padding: 5px;
+}

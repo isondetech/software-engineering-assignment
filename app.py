@@ -9,9 +9,9 @@ app = Flask(__name__)
 def hello_world():
     return render_template("events.html")
 
-@app.route("/admin-dashboard")
+@app.route("/dashboard")
 def admin_dashboard():
-    return "<h1>Admin Page</h1>"
+    return render_template("dashboard.html")
 
 @app.route("/add-event")
 def add_event():

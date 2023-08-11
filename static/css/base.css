@@ -38,12 +38,13 @@ p, h1{
 .title-badge{
     background-color: #FF4C41;
     border-radius: 3px;
+    border: 1px solid #000;
     color: #FFFFFF;
     padding: 5px;
 }
 
 .crud-ops a{
-    border: 2px solid black;
+    border: 2px solid #000;
     border-radius: 6px;
     padding: 8px;
 }

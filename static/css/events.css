@@ -1,6 +1,8 @@
 .event,
-.dashboard-event{
-    border: 2px solid #000000;
+.dashboard-event,
+.delete-event,
+.update-event{
+    border: 2px solid #000;
     border-radius: 4px;
     display: flex;
     align-items: center;
@@ -9,27 +11,32 @@
 }
 
 .event-content,
-.dashboard-event-content{
+.dashboard-event-content,
+.delete-event-content,
+.update-event-content{
     flex: 0.9;
     display: flex;
     flex-direction: column;
-    gap: 8px
+    gap: 0.6rem;
 }
 
 .event-content p,
-.dashboard-event-content p{
+.dashboard-event-content p,
+.delete-event-content p{
     font-size: 18px;
     font-weight: 400;
 }
 
 .event-content h1,
-.dashboard-event-content h1{
+.dashboard-event-content h1,
+.delete-event-content h1{
     font-size: 28px;
     font-weight: 500;
 }
 
 .event-content .attendees-count,
-.dashboard-event-content .attendees-count{
+.dashboard-event-content .attendees-count,
+.delete-event-content .attendees-count{
     color: #D44000;
     font-size: 16px;
     font-weight: 300;
@@ -42,7 +49,7 @@
 }
 
 .event button{
-    background-color: #000000;
+    background-color: #000;
     color: #fff;
     font-size: 16px;
     border-style: none;
@@ -56,3 +63,42 @@
     gap: 10px;
 }
 
+.delete-event{
+    display: block;
+}
+
+.delete-event .confirm-delete,
+.update-event .confirm-update{
+    display: flex;
+    border-top: 1px solid #000;
+    margin-top: 1rem;
+    padding-top: 0.8rem;
+    gap: 10px;
+}
+
+.delete-event .confirm-delete p,
+.update-event .confirm-update p{
+    flex: 1;
+}
+
+.delete-event .confirm-delete .yes{
+    color: #DA3D3D
+}
+
+.update-event .confirm-update input{
+    color: #F3A205;
+    padding: 0px;
+    background-color: #fff;
+    border: none;
+    font-weight: 300;
+}
+
+.update-event{
+    display: block;
+}
+
+.update-event-content input{
+    font-weight: 300;
+    font-size: 18px;
+    padding: 10px;
+}

@@ -1,14 +1,31 @@
 {%extends "base.html"%}
 
-{%block title%}Events | Dashboard{%endblock%}
+{%block title%}Dashboard | Events{%endblock%}
 {%block page_title%}Dashboard{%endblock%}
 {%block content%}
+    <div class="crud-ops">
+        <a class="add">
+            Add
+        </a>
+        <a class="delete">
+            Delete
+        </a>
+        <a class="update">
+            Update
+        </a>
+    </div>
     <div class="dashboard-events-holder">
-        <div class="dashboard-event">
-            <div class="dashboard-event-content">
-                <p>Date</p>
-                <h1>Event Title</h1>
-                <p class="attendees-count">0 attendee(s)</p>
+        <div class="event-ext">
+            <div class="dashboard-event">
+                <div class="dashboard-event-content">
+                    <p>Date</p>
+                    <h1>End Of Year Party</h1>
+                    <p class="attendees-count">0 attendee(s)</p>
+                </div>
+            </div>
+            <div class="dashboard-event-options">
+                <img class="update-img" src="{{url_for('static', filename='imgs/file.png')}}" width="20">
+                <img class="delete-img" src="{{url_for('static', filename='imgs/delete.png')}}" width="20">
             </div>
         </div>
     </div>

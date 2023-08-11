@@ -16,3 +16,11 @@ def admin_dashboard():
 @app.route("/add-event")
 def add_event():
     return render_template("add_event.html")
+
+@app.route("/delete-event")
+def delete_event():
+    return render_template("delete_event.html")
+
+@app.route("/update-event")
+def update_event():
+    return render_template("update_event.html")

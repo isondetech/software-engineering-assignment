@@ -41,3 +41,30 @@ p, h1{
     color: #FFFFFF;
     padding: 5px;
 }
+
+.crud-ops a{
+    border: 2px solid black;
+    border-radius: 6px;
+    padding: 8px;
+}
+
+.crud-ops .add{
+    border-color: #00B252;
+    color: #00B252;
+}
+
+.crud-ops .delete{
+    border-color: #FF4C41;
+    color: #FF4C41;
+}
+
+.crud-ops .update{
+    border-color: #F3A205;
+    color: #F3A205;
+}
+
+.crud-ops{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 2rem;
+}

@@ -1,4 +1,5 @@
-.event, .dashboard-event{
+.event,
+.dashboard-event{
     border: 2px solid #000000;
     border-radius: 4px;
     display: flex;
@@ -7,27 +8,51 @@
     padding: 12px;
 }
 
-.event-content, .dashboard-event-content{
+.event-content,
+.dashboard-event-content{
     flex: 0.9;
     display: flex;
     flex-direction: column;
     gap: 8px
 }
 
-.event-content p, .dashboard-event-content p{
+.event-content p,
+.dashboard-event-content p{
     font-size: 18px;
     font-weight: 400;
 }
 
-.event-content h1, .dashboard-event-content h1{
+.event-content h1,
+.dashboard-event-content h1{
     font-size: 28px;
     font-weight: 500;
 }
 
-.event-content .attendees-count, .dashboard-event-content .attendees-count{
+.event-content .attendees-count,
+.dashboard-event-content .attendees-count{
     color: #D44000;
     font-size: 16px;
-    font-weight: lighter;
+    font-weight: 300;
 }
 
+.dashboard-event{
+    display: block;
+    width: 18rem;
+    margin: 0px;
+}
+
+.event button{
+    background-color: #000000;
+    color: #fff;
+    font-size: 16px;
+    border-style: none;
+    border-radius: 3px;
+    padding: 8px 14px;
+}
+
+.event-ext{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 

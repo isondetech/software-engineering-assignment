@@ -2,8 +2,12 @@ from flask import (
     Flask,
     render_template
 )
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+
+
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///events_manager.db"
 
 @app.route("/")
 def hello_world():
@@ -13,7 +17,7 @@ def hello_world():
 def admin_dashboard():
     return render_template("dashboard.html")
 
-@app.route("/add-event")
+@app.route("/add-event", methods=["GET","POST"])
 def add_event():
     return render_template("add_event.html")
 

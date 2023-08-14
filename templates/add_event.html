@@ -2,13 +2,13 @@
 {% block title%}Add Event | Events{%endblock%}
 {%block page_title%}Add Event{%endblock%}
 {%block content%}
-    <div class="update-events-holder">
-        <div class="update-event">
-            <form name="update-event"class="update-event-content">
-                <input value="Testing" type="text" name="date">
-                <input value="hey" type="text" name="title">
-                <div class="confirm-update">
-                    <p>Update This Event?</p>
+    <div class="add-events-holder">
+        <div class="add-event">
+            <form action="/add-event" method="POST" class="add-event-content">
+                <input placeholder="Date" type="date" name="date">
+                <input placeholder="Event Name" type="text" name="title">
+                <div class="confirm-add">
+                    <p>Add This Event?</p>
                     <input type="submit" value="Yes"class="yes">
                     <a>Cancel</a>
                 </div>

@@ -1,5 +1,5 @@
 .success-message,
-.unsuccessful-message{
+.unsuccess-message{
     background-color: #D1F0C6;
     width: 20rem;
     border-radius: 6px;
@@ -11,17 +11,17 @@
 }
 
 .success-message .message,
-.unsuccessful-message .message{
+.unsuccess-message .message{
     flex: 1;
 }
 
-.unsuccessful-message{
+.unsuccess-message{
     background-color: #FFBDBD;
     color: #DA3D3D;
 }
 
 .success-message .close-message:hover,
-.unsuccessful-message .close-message:hover{
+.unsuccess-message .close-message:hover{
     text-decoration: underline;
     cursor: pointer;
 }

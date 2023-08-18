@@ -9,7 +9,7 @@ from flask import (
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///events_manager.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///evesants_manager.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key="Hey"
 db = SQLAlchemy(app)
@@ -35,7 +35,8 @@ def add_event():
             db.session.add(new_event)
             db.session.commit()
         except Exception as e:
-            flash(f"Couldn't add event, try again", "unsuccessful")
+            flash(f"Couldn't add event, try again", "unsuccess")
+            app.logger.error(e)
         else:
             flash("Event added successfully!", "success")
             return redirect(url_for("add_event"))

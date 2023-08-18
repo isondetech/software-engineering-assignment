@@ -5,14 +5,24 @@
     <div class="add-events-holder">
         <div class="add-event">
             <form action="/add-event" method="POST" class="add-event-content">
-                <input placeholder="Date" type="date" name="date">
-                <input placeholder="Event Name" type="text" name="title">
+                <input placeholder="Date" type="date" name="date" required>
+                <input placeholder="Event Name" type="text" name="title" required>
                 <div class="confirm-add">
                     <p>Add This Event?</p>
-                    <input type="submit" value="Yes"class="yes">
+                    <input type="submit" value="Add" class="yes">
                     <a>Cancel</a>
                 </div>
             </form>
         </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="{{category}}-message" id="removable-message">
+                        <p class="message">{{ message }}</p>
+                        <p class="close-message" id="close-message">x</p>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
     </div>
 {%endblock%}

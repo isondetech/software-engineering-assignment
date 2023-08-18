@@ -1,0 +1,27 @@
+.success-message,
+.unsuccessful-message{
+    background-color: #D1F0C6;
+    width: 20rem;
+    border-radius: 6px;
+    margin-top: 2rem;
+    display: flex;
+    padding: 0.5rem;
+    color: #1A6500;
+    font-size: 14px;
+}
+
+.success-message .message,
+.unsuccessful-message .message{
+    flex: 1;
+}
+
+.unsuccessful-message{
+    background-color: #FFBDBD;
+    color: #DA3D3D;
+}
+
+.success-message .close-message:hover,
+.unsuccessful-message .close-message:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}

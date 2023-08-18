@@ -111,5 +111,20 @@
 }
 
 .add-event .confirm-add input{
-    font-weight: 500;
+    color: #000;
+}
+
+.add-event .confirm-add input:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.add-event .confirm-add a{
+    text-decoration: none;
+    color: #000;
+}
+
+.add-event .confirm-add a:hover{
+    text-decoration: underline;
+    cursor: pointer;
 }

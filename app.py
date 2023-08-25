@@ -7,9 +7,10 @@ from flask import (
     url_for
 )
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///evesants_manager.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///events_manager.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key="Hey"
 db = SQLAlchemy(app)
@@ -21,7 +22,18 @@ class Event(db.Model):
 
 @app.route("/")
 def hello_world():
-    return render_template("events.html")
+    # select all event records from the Event table
+    try:
+        event_records = db.session.execute(db.select(Event).order_by(Event.id)).scalars().all()
+    except Exception as e:
+        app.logger.error("failed to retrieve event records: %s", e)
+
+    for event in event_records:
+        if event.date != "":
+            event_date = datetime.strptime(event.date, '%Y-%m-%d')
+            event.date = event_date.strftime("%a %d %b %Y")
+   
+    return render_template("events.html", events=event_records)
 
 @app.route("/dashboard")
 def admin_dashboard():
@@ -36,7 +48,7 @@ def add_event():
             db.session.commit()
         except Exception as e:
             flash(f"Couldn't add event, try again", "unsuccess")
-            app.logger.error(e)
+            app.logger.error("failed to add event: %s", e)
         else:
             flash("Event added successfully!", "success")
             return redirect(url_for("add_event"))

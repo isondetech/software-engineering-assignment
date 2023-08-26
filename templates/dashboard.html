@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="dashboard-event-options">
-                    <a href="/update-event"><img class="update-img" src="{{url_for('static', filename='imgs/file.png')}}" width="20"></a>
+                    <a href="/update-event/{{event.id}}"><img class="update-img" src="{{url_for('static', filename='imgs/file.png')}}" width="20"></a>
                     <a href="/delete-event/{{event.id}}"><img class="delete-img" src="{{url_for('static', filename='imgs/delete.png')}}" width="20"></a>
                 </div>
             </div>

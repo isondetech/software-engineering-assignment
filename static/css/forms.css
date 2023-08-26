@@ -11,6 +11,7 @@
     flex-direction: column;
     gap: 10px;
 }
+.delete-event .confirm-delete input,
 .update-event .confirm-update input,
 .add-event .confirm-add input{
     padding: 0px;
@@ -28,6 +29,10 @@
     font-weight: 300;
     font-size: 18px;
     padding: 10px;
+}
+
+.delete-event .confirm-delete input{
+    font-size: 16px;
 }
 
 .confirm-delete input:hover,

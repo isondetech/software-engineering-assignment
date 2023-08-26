@@ -7,17 +7,17 @@
         <div class="delete-event">
             <div class="delete-event-content">
                 <div class="date">
-                    <p>sun 23 mar 2023</p>
+                    <p>{{event.date}}</p>
                 </div>
                 <div class="title">
-                    <h1>Heyy</h1>
+                    <h1>{{event.title}}</h1>
                 </div>
             </div>
-            <div class="confirm-delete">
+            <form method="POST" action="/delete-event/{{event.id}}"class="confirm-delete">
                 <p>Delete This Event?</p>
-                <a class="yes">Yes</a>
+                <input type="submit" value="Yes" class="yes">
                 <a href="/dashboard">Cancel</a>
-            </div>
+            </form>
         </div>
     </div>
 {%endblock%}

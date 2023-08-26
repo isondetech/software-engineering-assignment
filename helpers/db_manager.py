@@ -16,9 +16,22 @@ def init_event_table(db):
 retrieve events from database
 sort and format the data too
 '''
-def get_events(db:SQLAlchemy, event) -> list:
-    event_records = db.session.execute(db.select(event).order_by(event.id)).scalars().all()
+def get_events(db, event_table) -> list:
+    event_records = db.session.execute(db.select(event_table).order_by(event_table.id)).scalars().all()
     return sort_fmt_event_records(event_records)
+
+def get_event(event_table, id, fmt=False):
+    event = event_table.query.get_or_404(id)
+    if fmt and event_table.date != "":
+        event_date = datetime.strptime(event.date, '%Y-%m-%d')
+        event.date = event_date.strftime("%a %d %b %Y")
+    return event
+
+def delete_event(db, event_table, id):
+    event = get_event(event_table, id)
+    db.session.delete(event)
+    db.session.commit()
+
     
 '''
 convert string to datetime object

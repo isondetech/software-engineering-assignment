@@ -56,10 +56,16 @@ def add_event():
             return redirect(url_for("add_event"))
     return render_template("add_event.html")
 
-@app.route("/delete-event/<int:id>")
+@app.route("/delete-event/<int:id>", methods=["GET","POST"])
 def delete_event(id):
-    return render_template("delete_event.html")
+    event_record = db_manager.get_event(event_table, id, True)
 
-@app.route("/update-event")
-def update_event():
-    return render_template("update_event.html")
+    if request.method == 'POST':
+        db_manager.delete_event(db, event_table, id)
+        return redirect(url_for("admin_dashboard"))
+    return render_template("delete_event.html", event=event_record)
+
+@app.route("/update-event/<int:id>")
+def update_event(id):
+    event_record = db_manager.get_event(event_table, id)
+    return render_template("update_event.html", event=event_record)

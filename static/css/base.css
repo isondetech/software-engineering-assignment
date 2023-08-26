@@ -22,7 +22,7 @@ p, h1{
     display: flex;
     align-items: center;
     gap: 15px;
-    margin: 3rem 0rem 2rem 0rem
+    margin: 3rem 0rem 1rem 0rem
 }
 
 .page-title button{
@@ -46,26 +46,17 @@ p, h1{
 .crud-ops a{
     border: 2px solid #000;
     border-radius: 6px;
-    padding: 8px;
+    padding: 4px;
 }
 
 .crud-ops .add{
+    text-decoration: none;
     border-color: #00B252;
     color: #00B252;
-}
-
-.crud-ops .delete{
-    border-color: #FF4C41;
-    color: #FF4C41;
-}
-
-.crud-ops .update{
-    border-color: #F3A205;
-    color: #F3A205;
 }
 
 .crud-ops{
     display: flex;
     gap: 10px;
-    margin-bottom: 2rem;
+    margin-bottom: 0.8rem;
 }

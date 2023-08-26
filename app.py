@@ -8,6 +8,7 @@ from flask import (
 )
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from helpers import db_manager
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///events_manager.db"
@@ -15,34 +16,35 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key="Hey"
 db = SQLAlchemy(app)
 
-class Event(db.Model):
-    id =  db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.String)
-    title = db.Column(db.String)
+event_table = db_manager.init_event_table(db)
+
 
 @app.route("/")
 def hello_world():
     # select all event records from the Event table
+    # log any error if they occur
     try:
-        event_records = db.session.execute(db.select(Event).order_by(Event.id)).scalars().all()
+        event_records = db_manager.get_events(db, event_table)
     except Exception as e:
         app.logger.error("failed to retrieve event records: %s", e)
-
-    for event in event_records:
-        if event.date != "":
-            event_date = datetime.strptime(event.date, '%Y-%m-%d')
-            event.date = event_date.strftime("%a %d %b %Y")
    
     return render_template("events.html", events=event_records)
 
 @app.route("/dashboard")
 def admin_dashboard():
-    return render_template("dashboard.html")
+    # select all event records from the Event table
+    # log any error if they occur
+    try:
+        event_records = db_manager.get_events(db, event_table)
+    except Exception as e:
+        app.logger.error("failed to retrieve event records: %s", e)
+    
+    return render_template("dashboard.html", events=event_records)
 
 @app.route("/add-event", methods=["GET","POST"])
 def add_event():
     if request.method == 'POST':
-        new_event = Event(date=request.form["date"], title=request.form["title"])
+        new_event = event_table(date=request.form["date"], title=request.form["title"])
         try:
             db.session.add(new_event)
             db.session.commit()
@@ -54,8 +56,8 @@ def add_event():
             return redirect(url_for("add_event"))
     return render_template("add_event.html")
 
-@app.route("/delete-event")
-def delete_event():
+@app.route("/delete-event/<int:id>")
+def delete_event(id):
     return render_template("delete_event.html")
 
 @app.route("/update-event")

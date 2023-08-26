@@ -1,20 +1,21 @@
+.dashboard-events-holder,
 .events-holder{
     border-radius: 3px;
     width: 28rem;
     padding: 20px 0px 20px 0px;
     overflow-y: scroll;
-    height: 30rem;
+    height: 70vh;
     display: flex;
     flex-direction: column;
     gap: 35px;
     border-top: 4px solid #000;
     border-bottom: 4px solid #000;
+    margin-bottom: 10px;
 }
+
 .event,
 .dashboard-event,
-.delete-event,
-.update-event,
-.add-event{
+.delete-event{
     border: 2px solid #000;
     border-radius: 4px;
     width: 25rem;
@@ -25,15 +26,15 @@
 
 .event-content,
 .dashboard-event-content,
-.delete-event-content,
-.update-event-content,
-.add-event-content{
+.delete-event-content{
     display: flex;
     align-items: center;
     gap: 20px;
     flex-wrap: wrap;
 }
 
+.delete-event-content .date,
+.dashboard-event-content .date,
 .event-content .date{
     font-size: 18px;
     font-weight: 400;
@@ -51,11 +52,15 @@
     font-weight: 400;
 }
 
+.delete-event-content .title h1,
+.dashboard-event-content .title h1,
 .event-content .title h1{
     font-size: 28px;
     font-weight: 500;
 }
 
+.delete-event-content .title,
+.dashboard-event-content .title,
 .event-content .title{
     flex: 1;
     min-width: 11rem;
@@ -65,20 +70,6 @@
 .delete-event-content h1{
     font-size: 28px;
     font-weight: 500;
-}
-
-.event-content .attendees-count,
-.dashboard-event-content .attendees-count,
-.delete-event-content .attendees-count{
-    color: #D44000;
-    font-size: 16px;
-    font-weight: 300;
-}
-
-.dashboard-event{
-    display: block;
-    width: 18rem;
-    margin: 0px;
 }
 
 .event button{
@@ -96,66 +87,3 @@
     gap: 10px;
 }
 
-.delete-event{
-    display: block;
-}
-
-.delete-event .confirm-delete,
-.update-event .confirm-update,
-.add-event .confirm-add{
-    display: flex;
-    border-top: 1px solid #000;
-    margin-top: 1rem;
-    padding-top: 0.8rem;
-    gap: 10px;
-}
-
-.delete-event .confirm-delete p,
-.update-event .confirm-update p,
-.add-event .confirm-add p{
-    flex: 1;
-}
-
-.delete-event .confirm-delete .yes{
-    color: #DA3D3D
-}
-
-.update-event .confirm-update input,
-.add-event .confirm-add input{
-    color: #F3A205;
-    padding: 0px;
-    background-color: #fff;
-    border: none;
-    font-weight: 300;
-}
-
-.update-event,
-.add-event{
-    display: block;
-}
-
-.update-event-content input,
-.add-event input{
-    font-weight: 300;
-    font-size: 18px;
-    padding: 10px;
-}
-
-.add-event .confirm-add input{
-    color: #000;
-}
-
-.add-event .confirm-add input:hover{
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-.add-event .confirm-add a{
-    text-decoration: none;
-    color: #000;
-}
-
-.add-event .confirm-add a:hover{
-    text-decoration: underline;
-    cursor: pointer;
-}

@@ -4,29 +4,28 @@
 {%block page_title%}Dashboard{%endblock%}
 {%block content%}
     <div class="crud-ops">
-        <a class="add">
+        <a href="/add-event" class="add">
             Add
-        </a>
-        <a class="delete">
-            Delete
-        </a>
-        <a class="update">
-            Update
         </a>
     </div>
     <div class="dashboard-events-holder">
-        <div class="event-ext">
-            <div class="dashboard-event">
-                <div class="dashboard-event-content">
-                    <p>Date</p>
-                    <h1>End Of Year Party</h1>
-                    <p class="attendees-count">0 attendee(s)</p>
+        {%for event in events%}
+            <div class="event-ext">
+                <div class="dashboard-event">
+                    <div class="dashboard-event-content">
+                        <div class="date">
+                            <p>{{event.date}}</p>
+                        </div>
+                        <div class="title">
+                            <h1>{{event.title}}</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-event-options">
+                    <a href="/update-event"><img class="update-img" src="{{url_for('static', filename='imgs/file.png')}}" width="20"></a>
+                    <a href="/delete-event/{{event.id}}"><img class="delete-img" src="{{url_for('static', filename='imgs/delete.png')}}" width="20"></a>
                 </div>
             </div>
-            <div class="dashboard-event-options">
-                <img class="update-img" src="{{url_for('static', filename='imgs/file.png')}}" width="20">
-                <img class="delete-img" src="{{url_for('static', filename='imgs/delete.png')}}" width="20">
-            </div>
-        </div>
+        {%endfor%}
     </div>
 {%endblock%}

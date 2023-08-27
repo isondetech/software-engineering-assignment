@@ -7,7 +7,6 @@ from flask import (
     url_for
 )
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
 from helpers import db_manager
 
 app = Flask(__name__)
@@ -32,7 +31,7 @@ def hello_world():
 
 @app.route("/dashboard")
 def admin_dashboard():
-    # select all event records from the Event table
+    # retrieve all events from the Event table
     # log any error if they occur
     try:
         event_records = db_manager.get_events(db, event_table)
@@ -49,23 +48,46 @@ def add_event():
             db.session.add(new_event)
             db.session.commit()
         except Exception as e:
-            flash(f"Couldn't add event, try again", "unsuccess")
+            flash(f"Failed to add event, try again", "unsuccess")
             app.logger.error("failed to add event: %s", e)
+            return redirect(url_for("add_event"))
         else:
             flash("Event added successfully!", "success")
             return redirect(url_for("add_event"))
     return render_template("add_event.html")
 
-@app.route("/delete-event/<int:id>", methods=["GET","POST"])
-def delete_event(id):
-    event_record = db_manager.get_event(event_table, id, True)
+@app.route("/delete-event/<int:event_id>", methods=["GET","POST"])
+def delete_event(event_id):
+    # retrieve event from table
+    event_record = db_manager.get_event(event_table, event_id, fmt_date=True)
 
+    # delete event, give feedback to user 
+    # if process succeeded or not
+    # log any errors
     if request.method == 'POST':
-        db_manager.delete_event(db, event_table, id)
-        return redirect(url_for("admin_dashboard"))
+        try:
+            db_manager.delete_event(db, event_table, event_id)
+        except Exception as e:
+            flash(f"Failed to delete event", "unsuccess")
+            app.logger.error("failed to delete event: %s", e)
+        else:
+            flash("Event deleted successfully!", "success")
+            return redirect(url_for("admin_dashboard"))
+
     return render_template("delete_event.html", event=event_record)
 
-@app.route("/update-event/<int:id>")
-def update_event(id):
-    event_record = db_manager.get_event(event_table, id)
+@app.route("/update-event/<int:event_id>", methods=["GET","POST"])
+def update_event(event_id):
+    event_record = db_manager.get_event(event_table, event_id)
+
+    if request.method == 'POST':
+        try:
+            db_manager.update_event(db, event_table, event_id, request.form)
+        except Exception as e:
+            flash(f"Failed to update event", "unsuccess")
+            app.logger.error("failed to update event: %s", e)
+        else:
+            flash("Event updated successfully!", "success")
+            return redirect(url_for("admin_dashboard"))
+
     return render_template("update_event.html", event=event_record)

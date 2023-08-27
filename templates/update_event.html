@@ -5,7 +5,7 @@
 {%block content%}
     <div class="update-events-holder">
         <div class="update-event">
-            <form name="update-event"class="update-event-content">
+            <form method="POST" action="/update-event/{{event.id}}" class="update-event-content">
                 <input value="{{event.date}}" type="date" name="date">
                 <input value="{{event.title}}" type="text" name="title">
                 <div class="confirm-update">

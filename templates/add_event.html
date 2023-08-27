@@ -6,7 +6,7 @@
         <div class="add-event">
             <form action="/add-event" method="POST" class="add-event-content">
                 <input placeholder="Date" type="date" name="date" required>
-                <input placeholder="Event Name" type="text" name="title" required>
+                <input placeholder="Event Name" type="text" name="title" maxlength="17" required>
                 <div class="confirm-add">
                     <p>Add This Event?</p>
                     <input type="submit" value="Add" class="yes">

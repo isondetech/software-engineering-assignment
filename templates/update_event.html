@@ -7,7 +7,7 @@
         <div class="update-event">
             <form method="POST" action="/update-event/{{event.id}}" class="update-event-content">
                 <input value="{{event.date}}" type="date" name="date">
-                <input value="{{event.title}}" type="text" name="title">
+                <input value="{{event.title}}" type="text" name="title" maxlength="17">
                 <div class="confirm-update">
                     <p>Update This Event?</p>
                     <input type="submit" value="Yes"class="yes">

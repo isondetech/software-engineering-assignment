@@ -17,7 +17,6 @@ db = SQLAlchemy(app)
 
 event_table = db_manager.init_event_table(db)
 
-
 @app.route("/")
 def hello_world():
     # select all event records from the Event table
@@ -43,10 +42,8 @@ def admin_dashboard():
 @app.route("/add-event", methods=["GET","POST"])
 def add_event():
     if request.method == 'POST':
-        new_event = event_table(date=request.form["date"], title=request.form["title"])
         try:
-            db.session.add(new_event)
-            db.session.commit()
+            db_manager.add_event(db, event_table, request.form)
         except Exception as e:
             flash(f"Failed to add event, try again", "unsuccess")
             app.logger.error("failed to add event: %s", e)

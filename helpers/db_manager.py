@@ -38,7 +38,10 @@ def update_event(db, event_table, event_id, new_data):
     event.title = new_data["title"]
     db.session.commit()
 
-    
+def add_event(db, event_table, new_data):
+    new_event = event_table(date=new_data["date"], title=new_data["title"])  
+    db.session.add(new_event)
+    db.session.commit()
 '''
 convert string to datetime object
 '''    

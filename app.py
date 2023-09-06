@@ -18,6 +18,14 @@ db = SQLAlchemy(app)
 
 event_table = db_manager.init_event_table(db)
 
+@app.route("/register")
+def register():
+    return render_template("register.html")
+
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
 @app.route("/")
 def hello_world():
     # select all event records from the Event table

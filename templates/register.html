@@ -1,0 +1,15 @@
+{% extends "base_2.html" %}
+{% block title%}Register | Events{%endblock%}
+{%block page_title%}Register{%endblock%}
+{%block content%}
+    <div class="register-header">
+        <p>Not new? <a href="/login">LOGIN</a></p>
+    </div>
+    <form class="register-form">
+        <input placeholder="Username" type="text" name="username" required>
+        <input placeholder="Password" type="text" name="password" required>
+        <div class="submit-container">
+            <input type="submit" value="Register" class="register-button">
+        </div>
+    </form>
+{%endblock%}

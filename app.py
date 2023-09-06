@@ -8,6 +8,7 @@ from flask import (
 )
 from flask_sqlalchemy import SQLAlchemy
 from helpers import db_manager
+from helpers.db_manager import UserExists
 
 # App configuration
 app = Flask(__name__)
@@ -17,9 +18,25 @@ app.secret_key="Hey"
 db = SQLAlchemy(app)
 
 event_table = db_manager.init_event_table(db)
+user_table = db_manager.init_user_table(db)
 
-@app.route("/register")
+@app.route("/register", methods=["POST", "GET"])
 def register():
+    if request.method == 'POST':
+        try:
+            db_manager.add_user(db, user_table, request.form)
+        except UserExists as e:
+            flash(f"{e}", "unsuccess")
+            app.logger.error(f"failed to add user: {e}")
+            return redirect(url_for("register"))
+        except Exception as e:
+            flash("Failed to register", "unsuccess")
+            app.logger.error(f"failed to add user: {e}")
+            return redirect(url_for("register"))
+        else:
+            flash("Registration successful!", "success")
+            return redirect(url_for("login"))
+
     return render_template("register.html")
 
 @app.route("/login")
@@ -27,13 +44,13 @@ def login():
     return render_template("login.html")
 
 @app.route("/")
-def hello_world():
+def events():
     # select all event records from the Event table
     # log any error if they occur
     try:
         event_records = db_manager.get_events(db, event_table)
     except Exception as e:
-        app.logger.error("failed to retrieve event records: %s", e)
+        app.logger.error(f"failed to retrieve event records: {e}")
    
     return render_template("events.html", events=event_records)
 
@@ -44,7 +61,7 @@ def admin_dashboard():
     try:
         event_records = db_manager.get_events(db, event_table)
     except Exception as e:
-        app.logger.error("failed to retrieve event records: %s", e)
+        app.logger.error(f"failed to retrieve event records: {e}")
     
     return render_template("dashboard.html", events=event_records)
 
@@ -58,7 +75,7 @@ def add_event():
             db_manager.add_event(db, event_table, request.form)
         except Exception as e:
             flash(f"Failed to add event, try again", "unsuccess")
-            app.logger.error("failed to add event: %s", e)
+            app.logger.error(f"failed to add event: {e}")
             return redirect(url_for("add_event"))
         else:
             flash("Event added successfully!", "success")
@@ -78,7 +95,7 @@ def delete_event(event_id):
             db_manager.delete_event(db, event_table, event_id)
         except Exception as e:
             flash(f"Failed to delete event", "unsuccess")
-            app.logger.error("failed to delete event: %s", e)
+            app.logger.error(f"failed to delete event: {e}")
             return redirect(url_for("admin_dashboard"))
         else:
             flash("Event deleted successfully!", "success")
@@ -100,7 +117,7 @@ def update_event(event_id):
             db_manager.update_event(db, event_table, event_id, request.form)
         except Exception as e:
             flash(f"Failed to update event", "unsuccess")
-            app.logger.error("failed to update event: %s", e)
+            app.logger.error(f"failed to update event: {e}")
             return redirect(url_for("admin_dashboard"))
         else:
             flash("Event updated successfully!", "success")

@@ -5,11 +5,21 @@
     <div class="register-header">
         <p>Not new? <a href="/login">LOGIN</a></p>
     </div>
-    <form class="register-form">
+    <form action="/register" method="POST" class="register-form">
         <input placeholder="Username" type="text" name="username" required>
-        <input placeholder="Password" type="text" name="password" required>
+        <input placeholder="Password" type="password" name="password" required>
         <div class="submit-container">
             <input type="submit" value="Register" class="register-button">
         </div>
     </form>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="{{category}}-message" id="removable-message">
+                        <p class="message">{{ message }}</p>
+                        <p class="close-message" id="close-message">x</p>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
 {%endblock%}

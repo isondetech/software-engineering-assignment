@@ -1,5 +1,8 @@
-from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
+
+class UserExists(Exception):
+    pass
 
 '''
 initialise an event table obj
@@ -12,11 +15,39 @@ def init_event_table(db):
     
     return Event
 
+def init_user_table(db):
+    class User(db.Model):
+        id = db.Column(db.Integer, primary_key=True)
+        username = db.Column(db.String, unique=True)
+        password = db.Column(db.String)
+        is_admin = db.Column(db.Boolean)
+    
+    return User
+
+def add_user(db, user_table, new_data):
+    if user_exists(user_table, new_data["username"]):
+        raise UserExists(f"The username {new_data['username']} already exists")
+
+    new_user = user_table(
+        username=new_data["username"],
+        password=generate_password_hash(new_data["password"],method="scrypt"),
+        is_admin=False
+    )
+    db.session.add(new_user)
+    db.session.commit()
+
+def user_exists(user_table, username):
+    user = user_table.query.filter_by(username=username).first()
+    if user:
+        print(user.username)
+        return True
+    return False
+
 '''
 retrieve events from database
 sort and format the data too
 '''
-def get_events(db, event_table) -> list:
+def get_events(db, event_table):
     event_records = db.session.execute(db.select(event_table).order_by(event_table.id)).scalars().all()
     return sort_fmt_event_records(event_records)
 
@@ -50,8 +81,8 @@ def update_event(db, event_table, event_id, new_data):
 '''
 add event to database
 '''
-def add_event(db, event_table, new_data):
-    new_event = event_table(date=new_data["date"], title=new_data["title"])  
+def add_event(db, event, new_data):
+    new_event = event(date=new_data["date"], title=new_data["title"])  
     db.session.add(new_event)
     db.session.commit()
 

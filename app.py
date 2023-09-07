@@ -204,9 +204,9 @@ def update_event(event_id):
         except Exception as e:
             flash(f"Failed to update event", "unsuccess")
             app.logger.error(f"failed to update event: {e}")
-            return redirect(url_for("admin_dashboard"))
+            return redirect(url_for("dashboard"))
         else:
             flash("Event updated successfully!", "success")
-            return redirect(url_for("admin_dashboard"))
+            return redirect(url_for("dashboard"))
 
     return render_template("update_event.html", event=event_record)

@@ -25,6 +25,7 @@ app.secret_key="Hey"
 db = SQLAlchemy(app, session_options={"autoflush": False})
 login_manager = LoginManager()
 login_manager.login_view = "login"
+login_manager.login_message_category = "unsuccess"
 login_manager.init_app(app)
 
 event_table = db_manager.init_event_table(db)
@@ -80,6 +81,7 @@ def logout():
     return redirect(url_for('login'))
 
 @app.route("/")
+@login_required
 def events():
     # select all event records from the Event table
     # log any error if they occur
@@ -91,6 +93,7 @@ def events():
     return render_template("events.html", events=event_records)
 
 @app.route("/dashboard")
+@login_required
 def admin_dashboard():
     # Retrieve all events from the Event table
     try:
@@ -101,6 +104,7 @@ def admin_dashboard():
     return render_template("dashboard.html", events=event_records)
 
 @app.route("/add-event", methods=["GET","POST"])
+@login_required
 def add_event():
     # Add new event
     # If process succeeded, feedback to user, vice versa
@@ -117,6 +121,7 @@ def add_event():
     return render_template("add_event.html")
 
 @app.route("/delete-event/<int:event_id>", methods=["GET","POST"])
+@login_required
 def delete_event(event_id):
     # retrieve event from table
     event_record = db_manager.get_event(event_table, event_id, fmt_date=True)
@@ -138,6 +143,7 @@ def delete_event(event_id):
     return render_template("delete_event.html", event=event_record)
 
 @app.route("/update-event/<int:event_id>", methods=["GET","POST"])
+@login_required
 def update_event(event_id):
     # retrieve event from table
     # used for rendering event data

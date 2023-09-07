@@ -2,7 +2,7 @@ from datetime import datetime
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
-# A custom username exists error
+# A custom 'username exists' error
 class UsernameExists(Exception):
     pass
 
@@ -16,6 +16,8 @@ def init_event_table(db):
         id =  db.Column(db.Integer, primary_key=True)
         date = db.Column(db.String)
         title = db.Column(db.String)
+        last_updated_by = db.Column(db.Integer, db.ForeignKey('user.id'))
+        user = db.relationship("User", backref="user", uselist=False)
     
     return Event
 

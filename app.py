@@ -102,9 +102,8 @@ def logout():
 
 '''
 This route handles the main events page.
-Only authenticated users can access this page. It attempts to retrieve event
-records from the database. If an error occurs during the retrieval, it logs
-the error message.
+Only authenticated users can access this page. It retrieves event
+records from the database.
 '''
 @app.route("/")
 @login_required
@@ -114,9 +113,8 @@ def events():
 
 '''
 This route handles the dashboard page.
-Only authenticated users can access this page. It attempts to retrieve event
-records from the database. If an error occurs during the retrieval, it logs
-the error message.
+Only authenticated users can access this page. It retrieves event
+records from the database.
 '''
 @app.route("/dashboard")
 @login_required

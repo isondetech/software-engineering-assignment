@@ -6,6 +6,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 class UsernameExists(Exception):
     pass
 
+'''
+The EventObject class is designed to store and structure 
+event data retrieved from a database. It was created as a
+way to store the 'last_updated_by' foreign key (user Id) field 
+as a string (username)
+'''
 class EventObject():
     def __init__(self, id, date, title, last_updated_by):
         self.id = id
@@ -88,6 +94,8 @@ def get_user(user_table, username):
 
 '''
 This function retrieves events from the database.
+It maps the event records to an 'EventObject' and converts
+the user Id to the username of the user
 It sorts the events by their date, ensuring the
 most recent event appears first
 It also formats the date

@@ -94,7 +94,7 @@ def events():
 
 @app.route("/dashboard")
 @login_required
-def admin_dashboard():
+def dashboard():
     # Retrieve all events from the Event table
     try:
         event_records = db_manager.get_events(db, event_table)
@@ -123,6 +123,11 @@ def add_event():
 @app.route("/delete-event/<int:event_id>", methods=["GET","POST"])
 @login_required
 def delete_event(event_id):
+    if not current_user.is_admin:
+        flash(f"You're not authorized to delete", "unsuccess")
+        app.logger.error(f"User {current_user.username} attempted to delete event")
+        return redirect(url_for("dashboard"))
+
     # retrieve event from table
     event_record = db_manager.get_event(event_table, event_id, fmt_date=True)
 

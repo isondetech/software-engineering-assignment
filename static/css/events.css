@@ -1,10 +1,8 @@
 .dashboard-link{
-    color: #F3A205;
-    text-decoration: none;
-}
-.dashboard-link:hover{
+    color: #129BFF;
     text-decoration: underline;
 }
+
 .events-link{
     color: #000;
     text-decoration: none;

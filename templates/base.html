@@ -19,9 +19,13 @@
             <div class="page-title">
                 <h1>{%block page_title%}{%endblock%}</h1>
                 <div class="title-badge">
-                    <p>A</p>
+                    {% if user.is_admin %}
+                        <p>{{user.username}} | Admin</p>
+                    {% else %}
+                        <p>{{user.username}}</p>
+                    {% endif %}
                 </div>
-                <button>LOGOUT</button>
+                <a href="/logout"><button>LOGOUT</button></a>
             </div>
             {% block content %}
             {% endblock %}

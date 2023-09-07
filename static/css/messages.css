@@ -8,6 +8,7 @@
     padding: 0.5rem;
     color: #1A6500;
     font-size: 14px;
+    gap:1px
 }
 
 .success-message .message,

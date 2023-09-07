@@ -1,7 +1,8 @@
 from datetime import datetime
+from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
-class UserExists(Exception):
+class UsernameExists(Exception):
     pass
 
 '''
@@ -16,7 +17,7 @@ def init_event_table(db):
     return Event
 
 def init_user_table(db):
-    class User(db.Model):
+    class User(db.Model, UserMixin):
         id = db.Column(db.Integer, primary_key=True)
         username = db.Column(db.String, unique=True)
         password = db.Column(db.String)
@@ -25,8 +26,8 @@ def init_user_table(db):
     return User
 
 def add_user(db, user_table, new_data):
-    if user_exists(user_table, new_data["username"]):
-        raise UserExists(f"The username {new_data['username']} already exists")
+    if username_exists(user_table, new_data["username"]):
+        raise UsernameExists(f"The username {new_data['username']} already exists")
 
     new_user = user_table(
         username=new_data["username"],
@@ -36,12 +37,21 @@ def add_user(db, user_table, new_data):
     db.session.add(new_user)
     db.session.commit()
 
-def user_exists(user_table, username):
-    user = user_table.query.filter_by(username=username).first()
+def username_exists(user_table, username):
+    user = get_user(user_table, username)
     if user:
         print(user.username)
         return True
     return False
+
+def login_info_is_valid(user_table, form):
+    user = get_user(user_table, form["username"])
+    if not user or not check_password_hash(user.password, form["password"]):
+        return False
+    return True
+
+def get_user(user_table, username):
+    return user_table.query.filter_by(username=username).first()
 
 '''
 retrieve events from database

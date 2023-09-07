@@ -35,6 +35,10 @@ p, h1{
     font-size: 16px;
 }
 
+.page-title button:hover{
+    cursor: pointer;
+}
+
 .title-badge{
     background-color: #FF4C41;
     border-radius: 3px;

@@ -13,13 +13,13 @@
         </div>
     </form>
     {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="{{category}}-message" id="removable-message">
-                        <p class="message">{{ message }}</p>
-                        <p class="close-message" id="close-message">x</p>
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="{{category}}-message" id="removable-message">
+                    <p class="message">{{ message }}</p>
+                    <p class="close-message" id="close-message">x</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 {%endblock%}

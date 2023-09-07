@@ -83,6 +83,15 @@
     font-weight: 500;
 }
 
+.dashboard-event .updated-by{
+    font-size: 12px;
+}
+
+.dashboard-event .updated-by .username{
+    font-style: italic;
+    font-weight: 500;
+}
+
 .event button{
     background-color: #000;
     color: #fff;

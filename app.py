@@ -109,11 +109,7 @@ the error message.
 @app.route("/")
 @login_required
 def events():
-    try:
-        event_records = db_manager.get_events(db, event_table)
-    except Exception as e:
-        app.logger.error(f"failed to retrieve event records: {e}")
-   
+    event_records = db_manager.get_events(db, event_table, user_table)
     return render_template("events.html", events=event_records)
 
 '''
@@ -125,11 +121,7 @@ the error message.
 @app.route("/dashboard")
 @login_required
 def dashboard():
-    try:
-        event_records = db_manager.get_events(db, event_table)
-    except Exception as e:
-        app.logger.error(f"failed to retrieve event records: {e}")
-    
+    event_records = db_manager.get_events(db, event_table, user_table)
     return render_template("dashboard.html", events=event_records)
 
 '''
@@ -144,7 +136,7 @@ alerts the user.
 def add_event():
     if request.method == 'POST':
         try:
-            db_manager.add_event(db, event_table, request.form)
+            db_manager.add_event(db, event_table, request.form, current_user)
         except Exception as e:
             flash(f"Failed to add event, try again", "unsuccess")
             app.logger.error(f"failed to add event: {e}")
@@ -200,7 +192,7 @@ def update_event(event_id):
 
     if request.method == 'POST':
         try:
-            db_manager.update_event(db, event_table, event_id, request.form)
+            db_manager.update_event(db, event_table, event_id, request.form, current_user)
         except Exception as e:
             flash(f"Failed to update event", "unsuccess")
             app.logger.error(f"failed to update event: {e}")

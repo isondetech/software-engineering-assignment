@@ -31,6 +31,7 @@
                             <h1>{{event.title}}</h1>
                         </div>
                     </div>
+                    <p class="updated-by">Last Updated by: <span class="username">{{event.last_updated_by}}</span></p>
                 </div>
                 <div class="dashboard-event-options">
                     <a href="/update-event/{{event.id}}"><img class="update-img" src="{{url_for('static', filename='imgs/file.png')}}" width="20"></a>

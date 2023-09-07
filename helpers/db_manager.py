@@ -6,6 +6,13 @@ from werkzeug.security import generate_password_hash, check_password_hash
 class UsernameExists(Exception):
     pass
 
+class EventObject():
+    def __init__(self, id, date, title, last_updated_by):
+        self.id = id
+        self.date = date
+        self.title = title
+        self.last_updated_by = last_updated_by
+
 '''
 This function creates an SQLAlchemy Model class called "Event"
 The "Event" class can be used to interact with the Event table
@@ -17,8 +24,8 @@ def init_event_table(db):
         date = db.Column(db.String)
         title = db.Column(db.String)
         last_updated_by = db.Column(db.Integer, db.ForeignKey('user.id'))
-        user = db.relationship("User", backref="user", uselist=False)
-    
+        user = db.relationship("User", backref='user', lazy=True, uselist=False)
+
     return Event
 
 '''
@@ -73,7 +80,8 @@ def login_info_is_valid(user_table, form):
     return True
 
 '''
-This function retrieves a user from the database.
+This function retrieves a user from the database by
+the user's username
 '''
 def get_user(user_table, username):
     return user_table.query.filter_by(username=username).first()
@@ -84,9 +92,19 @@ It sorts the events by their date, ensuring the
 most recent event appears first
 It also formats the date
 '''
-def get_events(db, event_table):
+def get_events(db, event_table, user_table):
     event_records = db.session.execute(db.select(event_table).order_by(event_table.id)).scalars().all()
-    return sort_fmt_event_records(event_records)
+    serialized_event_records = []
+    for record in event_records:
+        user = user_table.query.filter_by(id=record.last_updated_by).first()
+        event_record = EventObject(
+            record.id,
+            record.date,
+            record.title,
+            user.username
+        )
+        serialized_event_records.append(event_record)
+    return sort_fmt_event_records(serialized_event_records)
 
 '''
 This function retrieves an event from the database
@@ -110,17 +128,22 @@ def delete_event(db, event_table, event_id):
 '''
 This funcion updates an event in the database
 '''
-def update_event(db, event_table, event_id, new_data):
+def update_event(db, event_table, event_id, new_data, current_user):
     event = get_event(event_table, event_id)
     event.date = new_data["date"]
     event.title = new_data["title"]
+    event.last_updated_by = current_user.id
     db.session.commit()
 
 '''
 This functiom adds an event to database
 '''
-def add_event(db, event, new_data):
-    new_event = event(date=new_data["date"], title=new_data["title"])  
+def add_event(db, event, new_data, current_user):
+    new_event = event(
+        date=new_data["date"], 
+        title=new_data["title"], 
+        last_updated_by = current_user.id
+    )  
     db.session.add(new_event)
     db.session.commit()
 

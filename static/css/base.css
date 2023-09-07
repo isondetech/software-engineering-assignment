@@ -37,20 +37,29 @@ p, h1{
     padding: 3px;
 }
 
-.crud-ops a{
-    border: 2px solid #000;
-    border-radius: 6px;
-    padding: 4px;
+.crud-ops .add{
+    color: #00B252;
+    text-decoration: none;
+    font-weight: 500;
 }
 
-.crud-ops .add{
+.crud-ops .add:hover{
+    text-decoration: underline;
+}
+
+.events-link {
+    color: #129BFF;
     text-decoration: none;
-    border-color: #00B252;
-    color: #00B252;
+    font-weight: 500;
+}
+
+.events-link:hover{
+    text-decoration: underline;
 }
 
 .crud-ops{
     display: flex;
     gap: 10px;
     margin-bottom: 0.8rem;
+    align-items: flex-end;
 }

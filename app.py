@@ -140,10 +140,10 @@ def delete_event(event_id):
         except Exception as e:
             flash(f"Failed to delete event", "unsuccess")
             app.logger.error(f"failed to delete event: {e}")
-            return redirect(url_for("admin_dashboard"))
+            return redirect(url_for("dashboard"))
         else:
             flash("Event deleted successfully!", "success")
-            return redirect(url_for("admin_dashboard"))
+            return redirect(url_for("dashboard"))
 
     return render_template("delete_event.html", event=event_record)
 

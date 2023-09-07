@@ -1,11 +1,11 @@
 .dashboard-link{
     color: #129BFF;
-    text-decoration: underline;
+    text-decoration: none;
+    font-weight: 500;
 }
 
-.events-link{
-    color: #000;
-    text-decoration: none;
+.dashboard-link:hover{
+    text-decoration: underline;
 }
 
 .dashboard-events-holder,

@@ -22,26 +22,36 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///events_manager.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key="Hey"
+
+# Database configuration
 db = SQLAlchemy(app, session_options={"autoflush": False})
+
+# Login manager configuration
 login_manager = LoginManager()
 login_manager.login_view = "login"
 login_manager.login_message_category = "unsuccess"
 login_manager.init_app(app)
 
+# Database tables
 event_table = db_manager.init_event_table(db)
 user_table = db_manager.init_user_table(db)
 
+# Load user
 @login_manager.user_loader
 def load_user(user_id):
     return user_table.query.get(int(user_id))
 
-'''
-Passes the user's data to all the html templates
-'''
+# Passes the user's data to all the html templates
 @app.context_processor
 def inject_user():
     return dict(user=current_user)
 
+'''
+This route handles user registration.
+It attempts to add a user to the database and logs any error that occur
+during the process. If the registration process is successful or unsuccessful
+it alerts the user.
+'''
 @app.route("/register", methods=["POST", "GET"])
 def register():
     if request.method == 'POST':
@@ -61,6 +71,12 @@ def register():
 
     return render_template("register.html")
 
+'''
+This route handles user login.
+It validates the user login info from the database and logs the user in,
+it logs any error that occur during the process. If the login process
+is unsuccessful it alerts the user.
+'''
 @app.route("/login", methods=["POST", "GET"])
 def login():
     if request.method == 'POST':
@@ -74,17 +90,25 @@ def login():
     
     return render_template("login.html")
 
+'''
+This route handles user logout.
+It logs out a user and redirects them to the login page
+'''
 @app.route("/logout")
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('login'))
 
+'''
+This route handles the main events page.
+Only authenticated users can access this page. It attempts to retrieve event
+records from the database. If an error occurs during the retrieval, it logs
+the error message.
+'''
 @app.route("/")
 @login_required
 def events():
-    # select all event records from the Event table
-    # log any error if they occur
     try:
         event_records = db_manager.get_events(db, event_table)
     except Exception as e:
@@ -92,10 +116,15 @@ def events():
    
     return render_template("events.html", events=event_records)
 
+'''
+This route handles the dashboard page.
+Only authenticated users can access this page. It attempts to retrieve event
+records from the database. If an error occurs during the retrieval, it logs
+the error message.
+'''
 @app.route("/dashboard")
 @login_required
 def dashboard():
-    # Retrieve all events from the Event table
     try:
         event_records = db_manager.get_events(db, event_table)
     except Exception as e:
@@ -103,11 +132,16 @@ def dashboard():
     
     return render_template("dashboard.html", events=event_records)
 
+'''
+This route handles the adding of events.
+Only authenticated users can access this page. It attempts to add an event
+to the database. If an error occurs during the process, it logs
+the error message and alerts the user. If the additon is successful it also
+alerts the user.
+'''
 @app.route("/add-event", methods=["GET","POST"])
 @login_required
 def add_event():
-    # Add new event
-    # If process succeeded, feedback to user, vice versa
     if request.method == 'POST':
         try:
             db_manager.add_event(db, event_table, request.form)
@@ -120,6 +154,15 @@ def add_event():
             return redirect(url_for("add_event"))
     return render_template("add_event.html")
 
+'''
+This route handles the deleting of events.
+Only authenticated and privileged (admin) users can access this page. 
+It redirects any non-admin users back and lets them know they're not 
+authorised to access the page. 
+It attempts to delete an event from the database. If an error occurs
+during the deletion, it logs the error message and alerts the user.
+If the deletion is successful it also alerts the user.
+'''
 @app.route("/delete-event/<int:event_id>", methods=["GET","POST"])
 @login_required
 def delete_event(event_id):
@@ -128,12 +171,8 @@ def delete_event(event_id):
         app.logger.error(f"User {current_user.username} attempted to delete event")
         return redirect(url_for("dashboard"))
 
-    # retrieve event from table
     event_record = db_manager.get_event(event_table, event_id, fmt_date=True)
 
-    # delete event, give feedback to user 
-    # if process succeeded or not.
-    # Log any errors
     if request.method == 'POST':
         try:
             db_manager.delete_event(db, event_table, event_id)
@@ -147,16 +186,18 @@ def delete_event(event_id):
 
     return render_template("delete_event.html", event=event_record)
 
+'''
+This route handles the updatinf of events.
+Only authenticated users can access this page. It attempts to update an event
+to the database. If an error occurs during the process, it logs the error 
+message and alerts the user. If the process is successful it also
+alerts the user.
+'''
 @app.route("/update-event/<int:event_id>", methods=["GET","POST"])
 @login_required
 def update_event(event_id):
-    # retrieve event from table
-    # used for rendering event data
     event_record = db_manager.get_event(event_table, event_id)
 
-    # update event, give feedback to user 
-    # if process succeeded or not.
-    # Log any errors
     if request.method == 'POST':
         try:
             db_manager.update_event(db, event_table, event_id, request.form)

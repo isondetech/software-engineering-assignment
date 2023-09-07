@@ -11,7 +11,7 @@
 .dashboard-events-holder,
 .events-holder{
     border-radius: 3px;
-    width: 28rem;
+    width: 30rem;
     padding: 20px 0px 20px 0px;
     overflow-y: scroll;
     height: 70vh;
@@ -30,7 +30,7 @@
     border: 2px solid #000;
     border-radius: 4px;
     width: 25rem;
-    min-height: 5.3rem;
+    min-height: 6rem;
     overflow: auto;
     padding: 12px;
 }
@@ -83,10 +83,11 @@
     font-weight: 500;
 }
 
+.event .updated-by,
 .dashboard-event .updated-by{
     font-size: 12px;
 }
-
+.event .updated-by .username,
 .dashboard-event .updated-by .username{
     font-style: italic;
     font-weight: 500;

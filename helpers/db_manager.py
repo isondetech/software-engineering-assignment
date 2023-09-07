@@ -2,11 +2,14 @@ from datetime import datetime
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
+# A custom username exists error
 class UsernameExists(Exception):
     pass
 
 '''
-initialise an event table obj
+This function creates an SQLAlchemy Model class called "Event"
+The "Event" class can be used to interact with the Event table
+in the database.
 '''
 def init_event_table(db):
     class Event(db.Model):
@@ -16,6 +19,11 @@ def init_event_table(db):
     
     return Event
 
+'''
+This function creates an SQLAlchemy Model class called "User"
+The "User" class can be used to interact with the User table
+in the database.
+'''
 def init_user_table(db):
     class User(db.Model, UserMixin):
         id = db.Column(db.Integer, primary_key=True)
@@ -25,6 +33,10 @@ def init_user_table(db):
     
     return User
 
+'''
+This function adds a user to the database.
+It raises the "UsernameExists" error if a username exists.
+'''
 def add_user(db, user_table, new_data):
     if username_exists(user_table, new_data["username"]):
         raise UsernameExists(f"The username {new_data['username']} already exists")
@@ -37,32 +49,46 @@ def add_user(db, user_table, new_data):
     db.session.add(new_user)
     db.session.commit()
 
+'''
+This function checks if a username exists in the database.
+It returns "True" if it does and "False" if it doesn't.
+'''
 def username_exists(user_table, username):
     user = get_user(user_table, username)
     if user:
-        print(user.username)
         return True
     return False
 
+'''
+This function validates login info.
+It checks that the login info provided is present 
+in the database and matches appropriately.
+'''
 def login_info_is_valid(user_table, form):
     user = get_user(user_table, form["username"])
     if not user or not check_password_hash(user.password, form["password"]):
         return False
     return True
 
+'''
+This function retrieves a user from the database.
+'''
 def get_user(user_table, username):
     return user_table.query.filter_by(username=username).first()
 
 '''
-retrieve events from database
-sort and format the data too
+This function retrieves events from the database.
+It sorts the events by their date, ensuring the
+most recent event appears first
+It also formats the date
 '''
 def get_events(db, event_table):
     event_records = db.session.execute(db.select(event_table).order_by(event_table.id)).scalars().all()
     return sort_fmt_event_records(event_records)
 
 '''
-retrieve event from database
+This function retrieves an event from the database
+It formats the date from the format 'YYYY-MM-DD' to 'Day DD Mon YYYY'
 '''
 def get_event(event_table, event_id, fmt_date=False):
     event = event_table.query.get_or_404(event_id)
@@ -72,7 +98,7 @@ def get_event(event_table, event_id, fmt_date=False):
     return event
 
 '''
-delete event from database
+This function deletes an event from the database
 '''
 def delete_event(db, event_table, event_id):
     event = get_event(event_table, event_id)
@@ -80,7 +106,7 @@ def delete_event(db, event_table, event_id):
     db.session.commit()
 
 '''
-update an event
+This funcion updates an event in the database
 '''
 def update_event(db, event_table, event_id, new_data):
     event = get_event(event_table, event_id)
@@ -89,7 +115,7 @@ def update_event(db, event_table, event_id, new_data):
     db.session.commit()
 
 '''
-add event to database
+This functiom adds an event to database
 '''
 def add_event(db, event, new_data):
     new_event = event(date=new_data["date"], title=new_data["title"])  
@@ -97,13 +123,15 @@ def add_event(db, event, new_data):
     db.session.commit()
 
 '''
-convert string to datetime object
+This function converts an object's date property from
+the datatype string to a datetime object
 '''    
 def get_date(obj):
     return datetime.strptime(obj.date, '%Y-%m-%d')
 
 '''
-format event date e.g. "Fri 11 Aug 2023"
+This function formats the event date 
+from 'YYYY-MM-DD' to 'Day DD Mon YYYY'
 '''
 def fmt_event_records(events):
     for event in events:
@@ -113,7 +141,8 @@ def fmt_event_records(events):
     return events
 
 '''
-sort events by most recent event
+This function sorts the events in descending order based on their date, 
+ensuring that the most recent events appear first.
 '''
 def sort_fmt_event_records(events):
     sorted_asc_list = sorted(events, key=get_date, reverse=True)

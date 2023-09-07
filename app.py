@@ -157,7 +157,7 @@ def add_event():
 '''
 This route handles the deleting of events.
 Only authenticated and privileged (admin) users can access this page. 
-It redirects any non-admin users back and lets them know they're not 
+It redirects any non-admin users back and informs the they're not 
 authorised to access the page. 
 It attempts to delete an event from the database. If an error occurs
 during the deletion, it logs the error message and alerts the user.

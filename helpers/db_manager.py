@@ -28,7 +28,7 @@ def init_event_table(db):
     class Event(db.Model):
         id =  db.Column(db.Integer, primary_key=True)
         date = db.Column(db.String)
-        title = db.Column(db.String)
+        title = db.Column(db.String(17))
         last_updated_by = db.Column(db.Integer, db.ForeignKey('user.id'))
         user = db.relationship("User", backref='user', lazy=True, uselist=False)
 

@@ -10,7 +10,7 @@ To view and manage events, you'll need to be registered and logged in. Attemptin
 
 ### Note
 
-![image](https://github.com/isondetech/software-engineering-assignment/assets/111745965/8b59a530-da61-49cf-b1d9-0fd266fe8fae | width=100)
+![image](https://github.com/isondetech/software-engineering-assignment/assets/111745965/8b59a530-da61-49cf-b1d9-0fd266fe8fae|width=100)
 
 Whereever visible, these containers can be scrolled up or down to reveal hidden events.
 

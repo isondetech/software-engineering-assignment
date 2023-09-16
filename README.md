@@ -19,6 +19,7 @@ Whereever visible, these containers can be scrolled up or down to reveal hidden 
 ## Navigating To Dashboard
 
 You can navigate to the dashboard via the landing page (home page).
+
 <img src="https://github.com/isondetech/software-engineering-assignment/assets/111745965/e34bf7c4-b9a9-43f9-b3bb-f4429ca14b7c" width="350">
 
 A dashboard hyperlink will be within the landing page, clicking it will redirect you to the dashboard page

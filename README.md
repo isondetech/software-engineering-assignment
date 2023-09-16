@@ -39,6 +39,7 @@ A dashboard hyperlink will be within the landing page, clicking it will redirect
 ## Deleting An Event
 
 You'll have to be an admin user to perform deletes. You'll know you're an admin user if next to your username you have "Admin" like so:
+
 <img src="https://github.com/isondetech/software-engineering-assignment/assets/111745965/aeed12ef-6f50-4645-ab17-dc5604a82c69" width="350">
 
 - Navigate to the Dashboard > Locate An Event > Click The Bin Icon Next To The Event > Click Yes

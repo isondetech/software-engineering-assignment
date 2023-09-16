@@ -10,21 +10,20 @@ To view and manage events, you'll need to be registered and logged in. Attemptin
 
 ### Note
 
-<img src="https://github.com/isondetech/software-engineering-assignment/assets/111745965/8b59a530-da61-49cf-b1d9-0fd266fe8fae" width="350">
-
 Whereever visible, these containers can be scrolled up or down to reveal hidden events.
+
+<img src="https://github.com/isondetech/software-engineering-assignment/assets/111745965/8b59a530-da61-49cf-b1d9-0fd266fe8fae" width="350">
 
 # Manual
 
 ## Navigating To Dashboard
 
 You can navigate to the dashboard via the landing page (home page).
-
-![image](https://github.com/isondetech/software-engineering-assignment/assets/111745965/e34bf7c4-b9a9-43f9-b3bb-f4429ca14b7c)
+<img src="https://github.com/isondetech/software-engineering-assignment/assets/111745965/e34bf7c4-b9a9-43f9-b3bb-f4429ca14b7c" width="350">
 
 A dashboard hyperlink will be within the landing page, clicking it will redirect you to the dashboard page
 
-![image](https://github.com/isondetech/software-engineering-assignment/assets/111745965/5d803141-1147-43a8-9075-5ebc5acd8f57)
+<img src="https://github.com/isondetech/software-engineering-assignment/assets/111745965/5d803141-1147-43a8-9075-5ebc5acd8f57" width="350">
 
 ## Adding An Event
 
@@ -39,7 +38,7 @@ A dashboard hyperlink will be within the landing page, clicking it will redirect
 ## Deleting An Event
 
 You'll have to be an admin user to perform deletes. You'll know you're an admin user if next to your username you have "Admin" like so:
-![image](https://github.com/isondetech/software-engineering-assignment/assets/111745965/aeed12ef-6f50-4645-ab17-dc5604a82c69)
+<img src="https://github.com/isondetech/software-engineering-assignment/assets/111745965/aeed12ef-6f50-4645-ab17-dc5604a82c69" width="350">
 
 - Navigate to the Dashboard > Locate An Event > Click The Bin Icon Next To The Event > Click Yes
 - Click cancel to go back to the Dashboard

@@ -28,7 +28,7 @@ A dashboard hyperlink will be within the landing page, clicking it will redirect
 
 ## Adding An Event
 
-- Navigate to the Dashboard > Add > Input Date > Input Title > Click Add
+- Navigate to the Dashboard > Click Add > Input Date > Input Title > Click Add
 - Click cancel to go back to the Dashboard
 
 ## Updating An Event

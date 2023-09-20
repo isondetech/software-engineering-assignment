@@ -3,6 +3,8 @@
 The Event Listing Web Application is designed to assist any organisation in efficiently managing and showcasing events.
 To view and manage events, you'll need to be registered and logged in. Attempting to access login required pages when not logged in will result in being redirected to the login page.
 
+**[Web Application](https://sw-agile-assignment-16553ef2f884.herokuapp.com/)** 
+
 ### Admin Login Details
 
 - Username: User001

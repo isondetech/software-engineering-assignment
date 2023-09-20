@@ -47,6 +47,14 @@ You'll have to be an admin user to perform deletes. You'll know you're an admin 
 
 # Very Important Notice
 
+Heroku clears changes made to the SQLite database at least once in a day. 
+
+### Heroku on this
+
+> SQLite runs in memory, and backs up its data store in files on disk. While this strategy works well for development, Heroku’s Cedar stack has an ephemeral filesystem. You can write to it, and you can read from it, but the contents will be cleared periodically. If you were to use SQLite on Heroku, you would lose your entire database at least once every 24 hours.
+
+Therefore, this not a defect of my application, data can be modified, added and deleted from the SQLite database, but Heroku wipes this data at least once a day, this is just how Heroku operates.
+
 
 
 
